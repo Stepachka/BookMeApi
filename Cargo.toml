@@ -1,0 +1,23 @@
+[package]
+name = "basic-rust-rest-api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0.196", features = ["derive"] }
+serde_json = "1"
+axum = { version = "0.7.0", features = ["macros"] }
+tower-http = { version = "0.5.1", features = ["fs"]}
+async-trait = "0.1.77"
+diesel = {version = "2.1.4", features = ["postgres", "uuid", "r2d2"] }
+dotenv = "0.15.0"
+uuid = { version = "1.7.0", features = ["serde", "v4"]}
+r2d2 = "0.8.9"
+tower-lsp = "0.19.0"
+
+[dev-dependencies]
+anyhow = "1"
+httpc-test = "0.1.9"
