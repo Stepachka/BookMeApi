@@ -1,22 +1,28 @@
+extern crate diesel;
 mod controllers;
 mod service;
 mod lib;
 mod schema;
+mod models;
 
 use axum::{Router};
 use axum::routing::get;
+use axum_swagger_ui::swagger_ui;
 use crate::lib::lib::AppState;
-use axum::extract::Extension;
 
 #[tokio::main]
 async fn main() {
 
+    let doc_url = "swagger/openapi.json";
     let config = AppState {
-        pool: AppState::new()
+        pool: AppState::sync_pool()
     };
+
     let routes = Router::new()
+        .route("/swagger", get(|| async { swagger_ui(doc_url) }))
         .route("/", get(test))
         .nest("/api", controllers::init_routes_all(&config));
+
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await.unwrap();

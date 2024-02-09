@@ -1,25 +1,24 @@
-use crate::schema::users;
+use chrono::NaiveDateTime;
+use diesel::prelude::*;
+use diesel::sql_types::Timestamp;
+use serde::{Deserialize, Serialize};
 
 #[derive(
-Clone,
-Serialize,
-Deserialize,
-Debug,
-PartialEq,
 Queryable,
+Selectable,
+PartialEq,
 Insertable,
 AsChangeset,
 Identifiable,
-QueryableByName,
-MetaFields,
+Serialize,
+Deserialize
 )]
-#[primary_key(uuid)]
-#[table_name = "users"]
-pub struct UsersModel {
+#[diesel(table_name = "users")]
+pub struct User {
     pub id: i32,
     pub username: String,
     pub email: String,
     pub password: String,
-    pub created_at:Option<NaiveDateTime>,
-    pub updated_at: Option<NaiveDateTime>
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>,
 }

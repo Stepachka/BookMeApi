@@ -10,7 +10,7 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new() -> Pool<ConnectionManager<PgConnection>> {
+    pub fn sync_pool() -> Pool<ConnectionManager<PgConnection>> {
         dotenv().ok();
         let database_url    = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
         let manager         = ConnectionManager::<PgConnection>::new(database_url);
@@ -19,6 +19,4 @@ impl AppState {
             .build(manager)
             .expect("Could not build connection pool")
     }
-
-
 }
